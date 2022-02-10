@@ -15,7 +15,14 @@
                     type="number"
                     v-model.number="quantity"
                 />
-                <v-btn class="green darken-3 white--text" :disabled="insufficientFunds || quantity <= 0 || !Number.isInteger(quantity)" @click="buyStock" 
+                <v-btn
+                    class="green darken-3 white--text"
+                    :disabled="
+                        insufficientFunds ||
+                        quantity <= 0 ||
+                        !Number.isInteger(quantity)
+                    "
+                    @click="buyStock"
                     >Comprar</v-btn
                 >
             </v-container>
@@ -31,7 +38,7 @@ export default {
             quantity: 0,
         };
     },
-    
+
     methods: {
         buyStock() {
             const order = {
@@ -39,10 +46,8 @@ export default {
                 stockPrice: this.stock.price,
                 quantity: this.quantity,
             };
-            // eslint-disable-next-line 
-            console.log(order)
+            this.$store.dispatch("buyStock", order);
             this.quantity = 0;
-            
         },
     },
 };
